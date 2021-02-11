@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax 3 = Extneral Api</title>
+  <style>
+    .user {
+      background-color: #f4f4f4; 
+      display: flex; 
+      padding: 10px; 
+      margin-bottom: 10px;
+    }
+  .user ul {
+    list-style: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="button">Load Github Users</button>
+  <br><br>
+  <h1>Github Users</h1>
+  <div id="users"></div>
+
+
+
+  <script>
+
+    document.getElementById('button').addEventListener('click', loadUsers);
+
+    function loadUsers() {
+      var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              const users = JSON.parse(xhttp.responseText);
+              let output = '';
+              // users.forEach((i) => {
+              //   // console.log(i);
+              //   output += `<ul>
+              // <li>ID: ${i.id}</li>                         //Works
+              // <li>Login: ${i.login}</li> 
+              // <li>URL: ${i.url}</li> 
+              // </ul>`
+              // })
+              for(i=0; i < users.length; i++) {
+                console.log(users[i]);
+                output +=
+              '<div class="user">' +
+              '<img src="'+users[i].avatar_url+'" width="70" height="70">' +
+              '<ul>' +
+              '<li>ID: '+users[i].id+'</li>' +
+              '<li>Login: '+users[i].login+'</li>' +
+              '</ul>' +
+              '</div>';
+              }
+              document.getElementById('users').innerHTML = output;
+              // document.querySelector('.user').style.cssText = 'background-color: #f4f4f4; display: flex; padding: 10px; margin-bottom: 10px;';
+            }
+        };
+        xhttp.open("GET", "https://api.github.com/users", true);
+        xhttp.send();
+    }
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

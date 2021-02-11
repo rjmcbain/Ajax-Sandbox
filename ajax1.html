@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax = Text File</title>
+</head>
+<body>
+  
+  <button id="button">Get Text File</button>
+
+
+<script>
+
+const button = document.getElementById('button');
+const newDiv = document.createElement('div');
+newDiv.id = 'newDiv';
+document.body.appendChild(newDiv);
+button.addEventListener('click', getText);
+
+function getText() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() { 
+    if (this.readyState == 4 && this.status == 200) {
+       // Typical action to be performed when the document is ready:
+      //  document.getElementById("demo").innerHTML = xhttp.responseText;
+      console.log(xhttp.responseText);
+      const p = document.createElement('p');
+      const d = document.getElementById('newDiv');
+      d.appendChild(p);
+      p.innerHTML = xhttp.responseText;
+    }
+};
+xhttp.open("GET", "../sample.txt", true);
+xhttp.send();
+}
+
+// readyState Values
+// 0: request not initialized
+// 1: server connectionnestablished
+// 2: request received
+// 3: processing request
+// 4: request finished and response is ready
+
+</script>
+
+</body>
+</html>
